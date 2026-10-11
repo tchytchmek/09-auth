@@ -17,8 +17,8 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchUser = async () => {
       // Перевіряємо сесію
-      const isAuthenticated = await checkSession();
-      if (isAuthenticated) {
+      const session = await checkSession();
+      if (session?.success) {
         // Якщо сесія валідна — отримуємо користувача
         const user = await getMe();
         if (user) setUser(user);

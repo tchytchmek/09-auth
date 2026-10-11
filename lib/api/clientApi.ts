@@ -12,8 +12,8 @@ interface CredentialsQuery {
   password: string;
 }
 
-interface CheckSessionRequest{
-    sucess: boolean,
+interface CheckSessionRequest {
+  success: boolean;
 }
 export async function fetchNotes(
   page: number,
@@ -60,7 +60,7 @@ export async function deleteNote(id: string): Promise<Note> {
   return data;
 }
 
-export async function fetchNotesById(id: string): Promise<Note> {
+export async function fetchNoteById(id: string): Promise<Note> {
   const { data } = await nextApi.get<Note>(`/notes/${id}`, {
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -68,6 +68,8 @@ export async function fetchNotesById(id: string): Promise<Note> {
   });
   return data;
 }
+
+export const fetchNotesById = fetchNoteById;
 
 export async function register({ email, password }: CredentialsQuery): Promise<User> {
   const { data } = await nextApi.post<User>(
@@ -96,14 +98,7 @@ export async function checkSession(): Promise<CheckSessionRequest> {
 
 
 export async function getMe(): Promise<User> {
-  const { data } = await nextApi.get<User>(
-    "/users/me",
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
-  );
+  const { data } = await nextApi.get<User>("/users/me");
   return data;
 }
 
@@ -111,11 +106,6 @@ export async function updateMe({ username }: { username: string }): Promise<User
   const { data } = await nextApi.patch<User>(
     "/users/me",
     { username },
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
   );
   return data;
 }

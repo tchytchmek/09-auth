@@ -30,7 +30,7 @@ export async function fetchNotes(
   return data;
 }
 
-export async function fetchNotesById(id: string): Promise<Note> {
+export async function fetchNoteById(id: string): Promise<Note> {
   const cookieStore = await cookies();
   const { data } = await nextApi.get<Note>(`/notes/${id}`, {
     headers: {
@@ -41,11 +41,12 @@ export async function fetchNotesById(id: string): Promise<Note> {
   return data;
 }
 
+export const fetchNotesById = fetchNoteById;
+
 export async function checkSession() {
   const cookieStore = await cookies();
   const res = await nextApi.get("/auth/session", {
     headers: {
-      Authorization: `Bearer ${authToken}`,
       Cookie: cookieStore.toString(),
     },
   });
@@ -56,7 +57,6 @@ export async function getMe() {
   const cookieStore = await cookies();
   const { data } = await nextApi.get<User>("/users/me", {
     headers: {
-      Authorization: `Bearer ${authToken}`,
       Cookie: cookieStore.toString(),
     },
   });
