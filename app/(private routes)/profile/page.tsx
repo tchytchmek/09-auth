@@ -3,6 +3,30 @@
 import css from "./ProfilePage.module.css";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store/authStore";
+import { Metadata } from "next";
+
+export async function generateMetadata() : Promise<Metadata>{
+const { email, username, avatar } = useAuthStore(
+      (state) => state.user,
+    );
+return {
+   title: `${username}'s profile`,
+   description: `${username}'s profile page`,
+   openGraph: {
+    title: `${username}'s profile`,
+    description: `${username}'s profile page`,
+    url: `https://09-auth-rho-rosy.vercel.app/profile`,
+    images: [
+      {
+        url: `${avatar}`,
+        width: 500,
+        height: 300,
+        alt: 'NoteHub',
+      }
+    ]
+  },
+}
+}
 
 export default function Profile() {
     const { email, username, avatar } = useAuthStore(
