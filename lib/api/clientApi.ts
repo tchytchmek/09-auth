@@ -69,7 +69,7 @@ export async function fetchNotesById(id: string): Promise<Note> {
   return data;
 }
 
-export async function register({ email, password }: CredentialsQuery) {
+export async function register({ email, password }: CredentialsQuery): Promise<User> {
   const { data } = await nextApi.post<User>(
     "/auth/register",
     { email, password },
@@ -82,7 +82,7 @@ export async function register({ email, password }: CredentialsQuery) {
   return data;
 }
 
-export async function login({ email, password }: CredentialsQuery) {
+export async function login({ email, password }: CredentialsQuery): Promise<User> {
   const { data } = await nextApi.post<User>(
     "/auth/login",
     { email, password },
@@ -95,19 +95,19 @@ export async function login({ email, password }: CredentialsQuery) {
   return data;
 }
 
-export async function logout() : Promise<void>{
-  const { data } = await nextApi.post(
+export async function logout(): Promise<void> {
+  await nextApi.post(
     "/auth/logout",
+    {},
     {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     },
   );
-  return data;
 }
 
-export async function checkSession() {
+export async function checkSession(): Promise<CheckSessionRequest> {
   const { data } = await nextApi.get<CheckSessionRequest>(
     "/auth/session",
     {
@@ -120,7 +120,7 @@ export async function checkSession() {
 }
 
 
-export async function getMe() {
+export async function getMe(): Promise<User> {
   const { data } = await nextApi.get<User>(
     "/users/me",
     {
@@ -132,8 +132,8 @@ export async function getMe() {
   return data;
 }
 
-export async function updateMe(username : string) {
-     const { data } = await nextApi.patch<User>(
+export async function updateMe({ username }: { username: string }): Promise<User> {
+  const { data } = await nextApi.patch<User>(
     "/users/me",
     { username },
     {
@@ -144,4 +144,3 @@ export async function updateMe(username : string) {
   );
   return data;
 }
-

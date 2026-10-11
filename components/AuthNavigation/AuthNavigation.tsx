@@ -13,8 +13,8 @@ export default function AuthNavigation() {
   );
   const {email} = useAuthStore((state) => state.user);
   const handleLogout = async  () => {
-    clearIsAuthenticated();
     const data = await logout();
+    clearIsAuthenticated();
     router.push("/sign-in");
   };
   return (

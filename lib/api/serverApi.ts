@@ -43,13 +43,13 @@ export async function fetchNotesById(id: string): Promise<Note> {
 
 export async function checkSession() {
   const cookieStore = await cookies();
-  const { data } = await nextApi.get("/auth/session", {
+  const res = await nextApi.get("/auth/session", {
     headers: {
       Authorization: `Bearer ${authToken}`,
       Cookie: cookieStore.toString(),
     },
   });
-  return data;
+  return res;
 }
 
 export async function getMe() {

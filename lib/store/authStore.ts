@@ -6,19 +6,23 @@ interface AuthStore {
   setUser: (newUser: User) => void;
   clearIsAuthenticated: () => void;
 }
-const initialUser : User = {
+const defaultUser: User = {
   email: "youremail@gmail.com",
   username: "username23719",
-  avatar: '/public/default-avatar.svg',
+  avatar: "/default-avatar.svg",
 };
-
+const noUser: User = {
+  email: "",
+  username: "",
+  avatar: "",
+};
 export const useAuthStore = create<AuthStore>()((set) => ({
-  user: initialUser,
+  user: defaultUser,
   isAuthenticated: false,
   setUser: (newUser) => {
     set({ user: newUser, isAuthenticated: true });
   },
   clearIsAuthenticated: () => {
-    set({ user: initialUser, isAuthenticated: false });
+    set({ user: noUser, isAuthenticated: false });
   },
 }));

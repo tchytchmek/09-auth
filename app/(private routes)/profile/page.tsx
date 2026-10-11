@@ -2,7 +2,7 @@ import css from "./ProfilePage.module.css";
 import Link from "next/link";
 import { Metadata } from "next";
 import { getMe } from "@/lib/api/serverApi";
-
+import Image from "next/image";
 export async function generateMetadata(): Promise<Metadata> {
   const { username, avatar } = await getMe();
 
@@ -37,7 +37,7 @@ export default async function Profile() {
           </Link>
         </div>
         <div className={css.avatarWrapper}>
-          <img
+          <Image
             src={avatar}
             alt={`${username}'s avatar`}
             width={120}
