@@ -20,8 +20,8 @@ export async function proxy(request: NextRequest) {
     if (refreshToken) {
       // Якщо accessToken відсутній, але є refreshToken — потрібно перевірити сесію навіть для публічного маршруту,
       // адже сесія може залишатися активною, і тоді потрібно заборонити доступ до публічного маршруту.
-      const data = await checkSession();
-      const setCookie = data.headers['set-cookie'];
+      const { headers } = await checkSession();
+      const setCookie = headers['set-cookie'];
 
       if (setCookie) {
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
@@ -76,5 +76,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/sign-in', '/sign-up'],
+  matcher: ['/notes/:path*','/profile/:path*', '/sign-in', '/sign-up'],
 };

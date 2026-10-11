@@ -8,15 +8,12 @@ interface NotesQuery {
   notes: Note[];
   totalPages: number;
 }
-interface CheckSessionRequest {
-  sucess: boolean;
-}
 export async function fetchNotes(
   page: number,
   text: string,
   tag?: string,
 ): Promise<NotesQuery> {
-  const cookieStore = await cookies;
+  const cookieStore = await cookies();
 
   const { data } = await nextApi.get<NotesQuery>("/notes", {
     headers: {
@@ -34,7 +31,7 @@ export async function fetchNotes(
 }
 
 export async function fetchNotesById(id: string): Promise<Note> {
-  const cookieStore = await cookies;
+  const cookieStore = await cookies();
   const { data } = await nextApi.get<Note>(`/notes/${id}`, {
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -45,8 +42,8 @@ export async function fetchNotesById(id: string): Promise<Note> {
 }
 
 export async function checkSession() {
-  const cookieStore = await cookies;
-  const { data } = await nextApi.get<CheckSessionRequest>("/auth/session", {
+  const cookieStore = await cookies();
+  const { data } = await nextApi.get("/auth/session", {
     headers: {
       Authorization: `Bearer ${authToken}`,
       Cookie: cookieStore.toString(),
@@ -56,7 +53,7 @@ export async function checkSession() {
 }
 
 export async function getMe() {
-  const cookieStore = await cookies;
+  const cookieStore = await cookies();
   const { data } = await nextApi.get<User>("/users/me", {
     headers: {
       Authorization: `Bearer ${authToken}`,

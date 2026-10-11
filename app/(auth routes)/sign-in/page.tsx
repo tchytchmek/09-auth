@@ -1,6 +1,8 @@
+"use client";
+
 import { getMe, login } from "@/lib/api/clientApi";
 import css from "./SignInPage.module.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import { useAuthStore } from "@/lib/store/authStore";

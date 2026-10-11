@@ -7,9 +7,9 @@ interface AuthStore {
   clearIsAuthenticated: () => void;
 }
 const initialUser : User = {
-  email: "",
-  username: "",
-  avatar: "",
+  email: "youremail@gmail.com",
+  username: "username23719",
+  avatar: '/public/default-avatar.svg',
 };
 
 export const useAuthStore = create<AuthStore>()((set) => ({

@@ -132,10 +132,10 @@ export async function getMe() {
   return data;
 }
 
-export async function updateMe({ email, password }: CredentialsQuery) {
+export async function updateMe(username : string) {
      const { data } = await nextApi.patch<User>(
     "/users/me",
-    { email, password },
+    { username },
     {
       headers: {
         Authorization: `Bearer ${authToken}`,
