@@ -73,11 +73,6 @@ export async function register({ email, password }: CredentialsQuery): Promise<U
   const { data } = await nextApi.post<User>(
     "/auth/register",
     { email, password },
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
   );
   return data;
 }
@@ -86,36 +81,16 @@ export async function login({ email, password }: CredentialsQuery): Promise<User
   const { data } = await nextApi.post<User>(
     "/auth/login",
     { email, password },
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
   );
   return data;
 }
 
 export async function logout(): Promise<void> {
-  await nextApi.post(
-    "/auth/logout",
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
-  );
+  await nextApi.post("/auth/logout");
 }
 
 export async function checkSession(): Promise<CheckSessionRequest> {
-  const { data } = await nextApi.get<CheckSessionRequest>(
-    "/auth/session",
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    },
-  );
+  const { data } = await nextApi.get<CheckSessionRequest>("/auth/session");
   return data;
 }
 
